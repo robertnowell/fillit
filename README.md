@@ -44,7 +44,9 @@ char	***get_data(char *str, t_map *settings)
 	return (array);
 }
 ```
-
+get_data() is our central function for 
+1. Accessing data stored in the file given to the program as a parameter  
+2. 
 
 ## Authors
 
