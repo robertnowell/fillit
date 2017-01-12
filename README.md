@@ -13,7 +13,7 @@ This project was implemented in C through an iterative backtracking algorithm. A
 
 ## Detail and Code Examples
 
-Our implementation relies on a custom data structure which we entitled "t_map" which holds three pairs of x and y variables, in addition to our current square size and how many tetriminos remain to be placed. The following is the main function for our program:
+Our implementation relies on a custom data structure which we entitled "t_map" which holds three pairs of x and y variables, in addition to our current map size (this is the square filled with tetromino pieces) and how many tetriminos remain to be placed. The following is the main function for our program:
 
 ```
 int	main(int argc, char *argv[])
@@ -45,7 +45,7 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 ```
-## Retrieving and Formatting Tetrimino Data
+### Retrieving and Formatting Tetrimino Data
 
 The first step is to initialize the variables of this struct and then read in data about our tetromino pieces from a file. We store the data read from file in three dimensional (char \*\*\*) array. We call get_data() from the main function:
 
@@ -87,7 +87,7 @@ Again in the main function, we will call create_map() to initialize a two dimens
 
 ### The Solving Algorithm
 
-From our main function, we run a continuous loop for our solving function. The solver() returns zero if there is no possible way to fit the tetrominos in the current map size. In this case, we increase the map size, recreate the map, and call the solver function again:
+From our main function, we run a continuous loop for our solving function. The solver() returns zero if there is no possible way to fit the tetrominos in the current map size. In this case, we increase the map size, recreate the map, and again call the solver function:
 
 ```
 bool	solver(char **map, t_map *settings, char ***array, int location)
@@ -119,6 +119,19 @@ bool	solver(char **map, t_map *settings, char ***array, int location)
 	}
 }
 ```
+
+Within our solver() function, we reset our map x and y variables, then proceed to our attempt to fit all tetrominos within the current square map. We do this one tetromino at a time. The process is as follows:  
+1. Check if our current tetromino will fit starting from our current position in the map (i.e. map[x_point][y_point]).  
+2. If the piece will fit:  
+  i. Edit the map to reflect this positioning of the tetromino (put the piece on the map)
+  ii. If that was the final tetromino, return 1 to indicate success.
+  iii. If that was not the final tetromino, find the next open spot on the map and return to the start of the loop to try to fit.
+3. If the piece will not fit:
+  i. Check if there is another open space on the map. If not, a bigger map is needed, so return 0.
+  ii. If there is another open space, then that means there is more space on the map but our piece won't fit, so we need to backtrack. Delete the most recent tetromino, and return to the start of the map to try to place it in the next available location.
+  
+This algorithm will run until a large enough map is found that will contain all of the tetrominos. This is quite quick for collections of less than seven pieces (less than one one hundredth of a second), and has been tested for collections of tetrominos as high as twenty pieces, but this takes a good amount of time.  
+
 ## Authors
 
 * **Robert Nowell** (https://github.com/robertnowell)
