@@ -79,7 +79,7 @@ char	***get_data(char *str, t_map *settings)
 ```
 get_data() is our central function for  
 1. Accessing data stored in the file given to the program as a parameter  
-2. Checking to ensure that the file contains valid information (according to specifications in the fillit.en.pdf)
+2. Checking to ensure that the file contains valid information (according to specifications in the fillit.en.pdf)  
 3. Filling our three dimensional array with formatted data about the tetrominos contained in the file. Each element of the three dimensional array is a tetrimino, four arrays of four characters (essentially a 2-d matrix) with "." for empty spaces and "#" for tetrimino spaces.
 If the file is valid, get_data() returns the filled in array.
 
@@ -123,12 +123,12 @@ bool	solver(char **map, t_map *settings, char ***array, int location)
 Within our solver() function, we reset our map x and y variables, then proceed to our attempt to fit all tetrominos within the current square map. We do this one tetromino at a time. The process is as follows:  
 1. Check if our current tetromino will fit starting from our current position in the map (i.e. map[x_point][y_point]).  
 2. If the piece will fit:  
-  i. Edit the map to reflect this positioning of the tetromino (put the piece on the map)
-  ii. If that was the final tetromino, return 1 to indicate success.
-  iii. If that was not the final tetromino, find the next open spot on the map and return to the start of the loop to try to fit.
-3. If the piece will not fit:
-  i. Check if there is another open space on the map. If not, a bigger map is needed, so return 0.
-  ii. If there is another open space, then that means there is more space on the map but our piece won't fit, so we need to backtrack. Delete the most recent tetromino, and return to the start of the map to try to place it in the next available location.
+  1. Edit the map to reflect this positioning of the tetromino (put the piece on the map)  
+  2. If that was the final tetromino, return 1 to indicate success.  
+  3. If that was not the final tetromino, find the next open spot on the map and return to the start of the loop to try to fit.  
+3. If the piece will not fit:  
+  1. Check if there is another open space on the map. If not, a bigger map is needed, so return 0.  
+  2. If there is another open space, then that means there is more space on the map but our piece won't fit, so we need to backtrack. Delete the most recent tetromino, and return to the start of the map to try to place it in the next available location.  
   
 This algorithm will run until a large enough map is found that will contain all of the tetrominos. This is quite quick for collections of less than seven pieces (less than one one hundredth of a second), and has been tested for collections of tetrominos as high as twenty pieces, but this takes a good amount of time.  
 
