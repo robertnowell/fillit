@@ -44,9 +44,11 @@ char	***get_data(char *str, t_map *settings)
 	return (array);
 }
 ```
-get_data() is our central function for 
+get_data() is our central function for  
 1. Accessing data stored in the file given to the program as a parameter  
-2. 
+2. Checking to ensure that the file contains valid information (according to specifications in the fillit.en.pdf)
+3. Filling our three dimensional array with formatted data about the tetrominos contained in the file.
+ 1. Each element of the three dimensional array is a tetrimino, a 4x4 matrix with "." for empty spaces and "#" for tetrimino spaces.
 
 ## Authors
 
