@@ -131,7 +131,11 @@ Within our solver() function, we reset our map x and y variables, then proceed t
     1. Check if there is another open space on the map. If not, a bigger map is needed, so return 0.
     2. If there is another open space, then that means there is more space on the map but our piece won't fit, so we need to backtrack. Delete the most recent tetromino, and return to the start of the map to try to place it in the next available location.  
   
-This algorithm will run until a large enough map is found that will contain all of the tetrominos. This is quite quick for collections of less than seven pieces (less than one one hundredth of a second), and has been tested for collections of tetrominos as high as twenty pieces, but this takes a good amount of time.  
+This algorithm will run until either:
+1. All pieces are successfully placed in the current map. In this case solver() returns 1 and the successfully filled-in map is printed  
+2. No more backtracking is possible (the program is attempting to place the first tetromino), and there are no more additional open spaces on the current map (the program is attempting to place the tetromino in the final possible map location, i.e. the bottom left position of the map). In this case solver() returns 0, a bigger map is created, and solver() tries again on the bigger map.  
+  
+The program continues until a map is found that will contain all of the tetrominos. This is quite quick for collections of less than seven pieces (less than one one hundredth of a second), and has been tested for collections of tetrominos as high as twenty pieces, and twenty pieces takes a good amount of time.  
 
 ## Authors
 
